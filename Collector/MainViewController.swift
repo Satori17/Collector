@@ -15,10 +15,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var numberTableView: UITableView!
     @IBOutlet var mainView: UIView!
     
-   
+    
     var savedNumbers: [NSManagedObject] = []
     var total = [String]()
     var sumOfNumbers = 0.0
+    var comma: Character = ","
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,7 @@ class MainViewController: UIViewController {
         }
         
         for i in savedNumbers {
-            sumOfNumbers += Double("\(i.value(forKeyPath: "name")!)") ?? 0
+            sumOfNumbers += Double("\(i.value(forKeyPath: "name")!)".doubleValue)
         }
         
         if savedNumbers.count > 0 {
@@ -62,23 +63,21 @@ class MainViewController: UIViewController {
     
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "დაამატე რიცხვი", message: nil, preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "დამატება", style: .default) { action in
+        let alert = UIAlertController(title: "Add Number", message: nil, preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Add", style: .default) { action in
             guard let textField = alert.textFields?.first,
                   let numberToSave = textField.text else {
                 return
             }
             
-            
             if textField.text != "" {
                 self.trashBarBtn.isEnabled = true
                 self.countBtn.layer.borderColor = UIColor.white.cgColor
                 self.countBtn.setTitleColor(.white, for: .normal)
-               
             } else {
                 if self.sumOfNumbers < 1 {
-                self.countBtn.layer.borderColor = UIColor.clear.cgColor
-                self.countBtn.setTitleColor(.clear, for: .normal)
+                    self.countBtn.layer.borderColor = UIColor.clear.cgColor
+                    self.countBtn.setTitleColor(.clear, for: .normal)
                 }
             }
             self.countBtn.isHidden = false
@@ -90,8 +89,7 @@ class MainViewController: UIViewController {
             self.numberTableView.reloadData()
         }
         
-        
-        let cancelAction = UIAlertAction(title: "წაშლა", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addTextField(configurationHandler: { textField in
             textField.keyboardType = .decimalPad
             textField.placeholder = "Type Number"
@@ -99,7 +97,7 @@ class MainViewController: UIViewController {
                 saveAction.isEnabled = true
             }
         })
-       
+        
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
@@ -108,7 +106,12 @@ class MainViewController: UIViewController {
     @IBAction func countButtonPressed(_ sender: UIButton) {
         let mystoryboard = UIStoryboard(name: "Main", bundle: nil)
         let secondVC = mystoryboard.instantiateViewController(withIdentifier: "TotalViewController") as! TotalViewController
-        secondVC.overall.text = "\(sumOfNumbers) GEL"
+        let roundedNumber = String(format: "%.0f", sumOfNumbers)
+        if sumOfNumbers - Double(roundedNumber)! == 0 {
+            secondVC.overall.text = "\(roundedNumber) GEL"
+        } else {
+            secondVC.overall.text = "\(String(format: "%.2f", sumOfNumbers)) GEL"
+        }
         navigationController?.pushViewController(secondVC, animated: true)
         sumOfNumbers = 0
     }
@@ -120,17 +123,15 @@ class MainViewController: UIViewController {
         countBtn.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
+    //Save to coreData
     func save(name: String) {
-        guard let appDelegate =
-                UIApplication.shared.delegate as? AppDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
         // 1
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
+        let managedContext = appDelegate.persistentContainer.viewContext
         // 2
-        let entity =
-            NSEntityDescription.entity(forEntityName: "Person",
+        let entity = NSEntityDescription.entity(forEntityName: "Person",
                                        in: managedContext)!
         let number = NSManagedObject(entity: entity,
                                      insertInto: managedContext)
@@ -140,12 +141,13 @@ class MainViewController: UIViewController {
         do {
             try managedContext.save()
             savedNumbers.append(number)
-            sumOfNumbers += Double("\(number.value(forKeyPath: "name")!)") ?? 0
+            sumOfNumbers += Double("\(number.value(forKeyPath: "name")!)".doubleValue)
         } catch let error as NSError {
             print("Could not save. \(error)")
         }
     }
     
+    // deleting data from coreData
     @IBAction func deleteButtonPressed(_ sender: UIBarButtonItem) {
         
         guard let appDelegate =
@@ -155,8 +157,8 @@ class MainViewController: UIViewController {
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
         
-        let alert = UIAlertController(title: nil, message: "ნამდვილად გსურს წაშლა?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "კი", style: .default) {
+        let alert = UIAlertController(title: nil, message: "Are you sure?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) {
             action in
             do {
                 let numbers = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
@@ -174,12 +176,27 @@ class MainViewController: UIViewController {
             self.savedNumbers = []
             self.numberTableView.reloadData()
         }
-        let noAction = UIAlertAction(title: "არა", style: .cancel)
+        let noAction = UIAlertAction(title: "No", style: .cancel)
         
         alert.addAction(yesAction)
         alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
     }
-    
 }
 
+// String Formatter to double
+extension String {
+    static let numberFormatter = NumberFormatter()
+    var doubleValue: Double {
+        String.numberFormatter.decimalSeparator = "."
+        if let result =  String.numberFormatter.number(from: self) {
+            return result.doubleValue
+        } else {
+            String.numberFormatter.decimalSeparator = ","
+            if let result = String.numberFormatter.number(from: self) {
+                return result.doubleValue
+            }
+        }
+        return 0
+    }
+}

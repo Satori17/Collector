@@ -17,7 +17,6 @@ class TotalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         totalLabel.text = overall.text
-       
     }
 }
 
