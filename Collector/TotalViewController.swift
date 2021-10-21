@@ -19,4 +19,3 @@ class TotalViewController: UIViewController {
         totalLabel.text = overall.text
     }
 }
-

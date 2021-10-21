@@ -52,8 +52,7 @@ class MainViewController: UIViewController {
         if savedNumbers.count > 0 {
             trashBarBtn.isEnabled = true
             countBtn.isHidden = false
-            mainView.backgroundColor = #colorLiteral(red: 0, green: 0.5515218377, blue: 0, alpha: 1)
-            
+            mainView.backgroundColor = #colorLiteral(red: 0, green: 0.5395529866, blue: 0, alpha: 1)
         } else {
             trashBarBtn.isEnabled = false
             countBtn.isHidden = true
@@ -69,7 +68,6 @@ class MainViewController: UIViewController {
                   let numberToSave = textField.text else {
                 return
             }
-            
             if textField.text != "" {
                 self.trashBarBtn.isEnabled = true
                 self.countBtn.layer.borderColor = UIColor.white.cgColor
@@ -83,8 +81,12 @@ class MainViewController: UIViewController {
             self.countBtn.isHidden = false
             
             if textField.text?.isEmpty == false {
-                self.save(name: numberToSave)
-                self.mainView.backgroundColor = #colorLiteral(red: 0, green: 0.5515218377, blue: 0, alpha: 1)
+                if Int(numberToSave.doubleValue) % 1 == 0 {
+                    self.save(name: "\(numberToSave)")
+                } else {
+                    self.save(name: "\(numberToSave.doubleValue)")
+                }
+                self.mainView.backgroundColor = #colorLiteral(red: 0, green: 0.5395529866, blue: 0, alpha: 1)
             }
             self.numberTableView.reloadData()
         }
@@ -119,7 +121,7 @@ class MainViewController: UIViewController {
     func UIInterface() {
         numberTableView.bounces = false
         countBtn.layer.cornerRadius = 20
-        countBtn.layer.borderWidth = 2
+        countBtn.layer.borderWidth = 3
         countBtn.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
@@ -176,7 +178,8 @@ class MainViewController: UIViewController {
             self.savedNumbers = []
             self.numberTableView.reloadData()
         }
-        let noAction = UIAlertAction(title: "No", style: .cancel)
+    
+        let noAction = UIAlertAction(title: "No", style: .destructive)
         
         alert.addAction(yesAction)
         alert.addAction(noAction)

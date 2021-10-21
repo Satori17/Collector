@@ -11,7 +11,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        50
+        45
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,7 +52,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 if self.savedNumbers.count > 0 {
                     self.trashBarBtn.isEnabled = true
                     self.countBtn.isHidden = false
-                    self.mainView.backgroundColor = #colorLiteral(red: 0, green: 0.5515218377, blue: 0, alpha: 1)
+                    self.mainView.backgroundColor = #colorLiteral(red: 0, green: 0.5395529866, blue: 0, alpha: 1)
                 } else {
                     self.trashBarBtn.isEnabled = false
                     self.countBtn.isHidden = true
