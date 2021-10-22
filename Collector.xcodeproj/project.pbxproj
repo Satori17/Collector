@@ -17,6 +17,7 @@
 		5813636D26EB7C2D001D094C /* numberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813636C26EB7C2D001D094C /* numberCell.swift */; };
 		5813636F26EB7C52001D094C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813636E26EB7C52001D094C /* TableViewController.swift */; };
 		584EF87826EC1CE000FD3B5F /* TotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EF87726EC1CE000FD3B5F /* TotalViewController.swift */; };
+		58C2649827212E6800B1A64D /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C2649727212E6800B1A64D /* Authentication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		5813636C26EB7C2D001D094C /* numberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberCell.swift; sourceTree = "<group>"; };
 		5813636E26EB7C52001D094C /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		584EF87726EC1CE000FD3B5F /* TotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalViewController.swift; sourceTree = "<group>"; };
+		58C2649727212E6800B1A64D /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				5813635526EB7AEC001D094C /* AppDelegate.swift */,
 				5813635726EB7AEC001D094C /* SceneDelegate.swift */,
 				5813636C26EB7C2D001D094C /* numberCell.swift */,
+				58C2649727212E6800B1A64D /* Authentication.swift */,
 				5813635926EB7AEC001D094C /* MainViewController.swift */,
 				5813636E26EB7C52001D094C /* TableViewController.swift */,
 				584EF87726EC1CE000FD3B5F /* TotalViewController.swift */,
@@ -156,6 +159,7 @@
 				5813636026EB7AEC001D094C /* Collector.xcdatamodeld in Sources */,
 				5813635626EB7AEC001D094C /* AppDelegate.swift in Sources */,
 				5813635826EB7AEC001D094C /* SceneDelegate.swift in Sources */,
+				58C2649827212E6800B1A64D /* Authentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

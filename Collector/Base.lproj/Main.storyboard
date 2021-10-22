@@ -131,7 +131,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yM7-Ta-vez"/>
-                        <color key="backgroundColor" red="0.0" green="0.52941179279999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.2352941036" green="0.53333336109999996" blue="0.14509806040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="edJ-nW-gLS" firstAttribute="centerY" secondItem="f9N-Qv-vLM" secondAttribute="centerY" id="0KZ-Gl-qNM"/>
                             <constraint firstItem="edJ-nW-gLS" firstAttribute="centerX" secondItem="f9N-Qv-vLM" secondAttribute="centerX" id="FRH-kQ-Feb"/>
@@ -161,7 +161,7 @@
                         </textAttributes>
                         <navigationBarAppearance key="standardAppearance"/>
                         <navigationBarAppearance key="scrollEdgeAppearance">
-                            <color key="backgroundColor" red="0.0" green="0.52941179279999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="backgroundColor" red="0.2352941036" green="0.53333336109999996" blue="0.14509806040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <textAttributes key="titleTextAttributes">
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </textAttributes>

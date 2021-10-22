@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import LocalAuthentication
 
 class MainViewController: UIViewController {
     
@@ -20,10 +21,15 @@ class MainViewController: UIViewController {
     var total = [String]()
     var sumOfNumbers = 0.0
     var comma: Character = ","
+    //Authentication
+    let context = LAContext()
+    var error: NSError?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIInterface()
+        authenticateUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,7 +166,7 @@ class MainViewController: UIViewController {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
         
         let alert = UIAlertController(title: nil, message: "Are you sure?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default) {
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive) {
             action in
             do {
                 let numbers = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
@@ -179,7 +185,7 @@ class MainViewController: UIViewController {
             self.numberTableView.reloadData()
         }
     
-        let noAction = UIAlertAction(title: "No", style: .destructive)
+        let noAction = UIAlertAction(title: "No", style: .default)
         
         alert.addAction(yesAction)
         alert.addAction(noAction)
